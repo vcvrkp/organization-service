@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: organizationservice
+  profiles.active: default
+---
+server:
+  port: 8100
+---
+spring:
+  profile: default
+  datasource:
+      url: jdbc:mysql://localhost:3306/tntorganization?tinyInt1isBit=false
+      username: root
+      password: krishna
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: validate
+
+management:
+  security:
+    enabled: false
+  endpoints.web.exposure.include: health,info,beans,env,refresh,bus-env
+server:
+  port: 8100
+security:
+  basic:
+    enabled: false
+---
+spring:
+  profile: local
+
+  datasource:
+      url: jdbc:mysql://localhost:3306/tntorganization?tinyInt1isBit=false
+      username: root
+      password: krishna
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: validate
+
+management:
+  security:
+    enabled: false
+  endpoints.web.exposure.include: health,info,beans,env,refresh
+server:
+  port: 8100
+security:
+  basic:
+    enabled: false
+    
+---
+spring:
+  profile: cloud
+management:
+  security:
+    enabled: false
+  endpoints.web.exposure.include: health,info,beans,env,refresh
