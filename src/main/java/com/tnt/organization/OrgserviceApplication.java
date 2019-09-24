@@ -1,13 +1,16 @@
 package com.tnt.organization;
 
 
+import static springfox.documentation.builders.PathSelectors.any;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 
-import static springfox.documentation.builders.PathSelectors.any;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -31,6 +34,11 @@ public class OrgserviceApplication {
                         new Contact("Ramakrishna", "@Dell", null),null, null));
     }
 
+    @LoadBalanced
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
     
 	public static void main(String[] args) {
 		SpringApplication.run(OrgserviceApplication.class, args);
