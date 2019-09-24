@@ -4,14 +4,19 @@
 package com.tnt.organization.domain;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -64,6 +69,10 @@ public class Organization {
 	
 	@Column(name = "evaluationcriteria")
 	private String evaluationCriteria;
+	
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinTable(name="department_organization",joinColumns=@JoinColumn(name="organizationid"),inverseJoinColumns=@JoinColumn(name="departmentid"))
+	private Set<Department> departments;
 
 	/**
 	 * @return the id
@@ -374,5 +383,19 @@ public class Organization {
 	public void setEvaluationCriteria(String evaluationCriteria) {
 		this.evaluationCriteria = evaluationCriteria;
 	}
+
+    /**
+     * @return the departments
+     */
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    /**
+     * @param departments the departments to set
+     */
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
+    }
 
 }

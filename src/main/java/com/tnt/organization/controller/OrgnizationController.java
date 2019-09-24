@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import com.tnt.organization.controller.forms.CreateOrganizationForm;
 import com.tnt.organization.domain.Organization;
 import com.tnt.organization.repository.OrganizationRepository;
@@ -30,13 +32,13 @@ import io.swagger.annotations.ApiOperation;
 public class OrgnizationController {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(OrgnizationController.class);
-	
+    
     @Autowired
 	OrganizationRepository organizationRepository;
 
 	@RequestMapping(value = "/{orgId}", method = RequestMethod.GET)
-	@ApiOperation(value = "Get All Organizations existing, in case passed id ", nickname = "findAll")
-	public List<Organization> findAll(@PathVariable(name = "orgId") Integer orgId) {
+	@ApiOperation(value = "Get All Organizations existing, in case passed id ", nickname = "findOne")
+	public List<Organization> findOne(@PathVariable(name = "orgId") Integer orgId) {
 	    LOGGER.info("Fetching Organization Details with Id " + orgId);
 		if (orgId != null && orgId > 0) {
 			return Collections.singletonList(organizationRepository.findById(orgId).orElse(null));

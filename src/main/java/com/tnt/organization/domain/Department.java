@@ -1,12 +1,18 @@
 package com.tnt.organization.domain;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,9 +40,7 @@ public class Department {
     @Column(name = "updatedate")
     private Date updateDate;
     
-    @Column(name = "organizationid")
-    private Integer organizationId;
-
+    
     /**
      * @return the id
      */
@@ -146,22 +150,9 @@ public class Department {
      * @param updateDate the updateDate to set
      */
     public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+        this.updateDate = updateDate; 
     }
 
-    /**
-     * @return the organizationId
-     */
-    public Integer getOrganizationId() {
-        return organizationId;
-    }
-
-    /**
-     * @param organizationId the organizationId to set
-     */
-    public void setOrganizationId(Integer organizationId) {
-        this.organizationId = organizationId;
-    }
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
@@ -170,7 +161,7 @@ public class Department {
     public String toString() {
         return "Department [id=" + id + ", parentId=" + parentId + ", name=" + name + ", description=" + description
                 + ", ownerId=" + ownerId + ", departmentId=" + departmentId + ", insertDate=" + insertDate
-                + ", updateDate=" + updateDate + ", organizationId=" + organizationId + "]";
+                + ", updateDate=" + updateDate + "]";
     }
     
     

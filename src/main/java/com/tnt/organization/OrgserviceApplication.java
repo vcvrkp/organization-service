@@ -24,7 +24,7 @@ public class OrgserviceApplication {
     
     @Bean
     public Docket api(){
-        return new Docket(DocumentationType.SWAGGER_2).groupName("User").select()
+        return new Docket(DocumentationType.SWAGGER_2).groupName("Orgnization").select()
                 .apis(RequestHandlerSelectors.basePackage("com.tnt"))
                 .paths(any()).build().apiInfo(new ApiInfo("Organization Service",
                         "A set of services to provide data access to Organization and Departments", "1.0.0", null,

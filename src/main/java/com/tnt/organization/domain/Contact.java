@@ -1,15 +1,17 @@
 package com.tnt.organization.domain;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "contact")
@@ -65,6 +67,24 @@ public class Contact {
 
     @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean active;
+
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="contactId",targetEntity=ContactInfo.class)
+    private Set<ContactInfo> contactInfo;
+    
+    
+    /**
+     * @return the contactInfo
+     */
+    public Set<ContactInfo> getContactInfo() {
+        return contactInfo;
+    }
+
+    /**
+     * @param contactInfo the contactInfo to set
+     */
+    public void setContactInfo(Set<ContactInfo> contactInfo) {
+        this.contactInfo = contactInfo;
+    }
 
     /**
      * @return the id
