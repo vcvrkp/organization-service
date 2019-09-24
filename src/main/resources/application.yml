@@ -58,3 +58,7 @@ management:
   security:
     enabled: false
   endpoints.web.exposure.include: health,info,beans,env,refresh
+---
+feign:
+  hystrix:
+    enabled: true
