@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.tnt.organization.controller.forms.CreateOrganizationForm;
 import com.tnt.organization.controller.vo.OrganizationVO;
@@ -40,6 +41,9 @@ public class OrganizationController {
 
     @Autowired
     private ProjectService projectService;
+    
+    @Autowired
+    DiscoveryClient discoveryClient;
 
 	@RequestMapping(value = "/{orgId}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get All Organizations existing, in case passed id ", nickname = "findOne")
@@ -78,6 +82,8 @@ public class OrganizationController {
 	@GetMapping(value="/{orgId}/projects")
 	public List<Project> getAllProjects(@PathVariable Integer orgId) {
 	    List<Project> projects = projectService.getProjects(orgId);
+	    List<ServiceInstance> instances = discoveryClient.getInstances("PROJECTSERVICE");
+	    instances.forEach(i -> System.out.println(i.getUri()));
         return projects;
 	}
 }
